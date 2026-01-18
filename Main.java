@@ -1,4 +1,6 @@
 //==CLASS MAIN==
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Main {
@@ -133,6 +135,43 @@ public class Main {
         System.out.println("Transaksi berhasil. Terima kasih!");
 
         // === END ===
+        System.out.println("=== SELESAI ===");
+        input.close();
+
+// === PROSES TRANSAKSI ===
+        TransaksiRental transaksiRental = new TransaksiRental();
+        transaksi.setIDTransaksi("TR001");
+        transaksi.setTotalJam(durasi);
+        transaksi.prosesTransaksi(konsolDipilih, durasi);
+
+        konsolDipilih.setStatusKonsol(false); // tandai sebagai disewa
+        System.out.println("Transaksi berhasil. Terima kasih!");
+
+// === CETAK STRUK ===
+        LocalDateTime waktuTransaksi = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        System.out.println("\n=== STRUK TRANSAKSI RENTAL RUANG PS ===");
+        System.out.println("Tanggal/Waktu   : " + waktuTransaksi.format(formatter));
+        System.out.println("ID Transaksi    : " + transaksi.getIDTransaksi());
+        System.out.println("ID Pemesanan    : " + pemesanan.getIDPemesanan());
+        System.out.println("Nama Pelanggan  : " + pelanggan.getNama());
+        System.out.println("No HP           : " + pelanggan.getNoHP());
+        System.out.println("Ruangan         : " + ruangDipilih.getIDRuangan());
+        System.out.println("Konsol          : " + konsolDipilih.getIDKonsol());
+        System.out.println("Durasi          : " + durasi + " jam");
+        System.out.println("Total Biaya     : Rp " + totalBiaya);
+        System.out.println("Uang Dibayar    : Rp " + uangDibayar);
+        if (uangDibayar > totalBiaya) {
+            System.out.println("Kembalian       : Rp " + (uangDibayar - totalBiaya));
+        } else {
+            System.out.println("Kembalian       : Rp 0");
+        }
+        System.out.println("=======================================");
+        System.out.println("Terima kasih telah menggunakan layanan kami!");
+        System.out.println("=======================================\n");
+
+// === END ===
         System.out.println("=== SELESAI ===");
         input.close();
     }
